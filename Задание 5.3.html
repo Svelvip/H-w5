@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"  crossorigin="anonymous"></script>   
+    <script type="text/javascript">
+        var m = [ 
+            { 
+                text: 'Животные', 
+                childs: [ 
+                { 
+                    text: 'Млекопитающие', 
+                    childs: [ 
+                        { 
+                            text: 'Коровы', 
+                        }, 
+                        { 
+                            text: 'Ослы', 
+                        }, 
+                        { 
+                            text: 'Собаки', 
+                        }, 
+                        { 
+                            text: 'Тигры', 
+                        }, 
+                    ] 
+                }, 
+                { 
+                    text: 'Другие', 
+                    childs: [ 
+                        { 
+                            text: 'Змеи', 
+                        }, 
+                        { 
+                            text: 'Птицы', 
+                        }, 
+                        { 
+                            text: 'Ящирицы', 
+                        }, 
+                    ] 
+                } 
+                ] 
+            }, 
+            { 
+                text: 'Рыбы', 
+                childs: [ 
+                    { 
+                        text: 'Аквариумные', 
+                        childs: [ 
+                            { 
+                                text: 'Гуппи', 
+                            }, 
+                            { 
+                                text: 'Скалярии', 
+                            }, 
+                        ] 
+                    }, 
+                    { 
+                        text: 'Морские', 
+                        childs: [ 
+                            { 
+                                text: 'Морская форель', 
+                            }, 
+                        ] 
+                    } 
+                ] 
+            } 
+            ];
+        function element(childs) {         
+            var ul = $('<ul/>')
+            for (var child of childs) {
+                var li = $('<li/>')
+                if (child.text != undefined){ 
+                    li.append(child.text)
+                }
+                if (typeof child != 'object'){
+                    li.append(child)
+                }
+                else if (child.childs != undefined){
+                    li.append(element(child.childs))
+                }       
+                li.on('click', function () {                 
+                    $(this.firstElementChild).slideToggle();
+                    console.log(this.firstChild.data, $(this).find("li").length);
+                    return false
+                })
+                ul.append(li)
+            }
+            return ul
+        }
+        $("body").append(element(m));
+    </script>       
+</body>
+</html>
